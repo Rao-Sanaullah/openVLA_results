@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenVLA — SG2 Results</title>
+<style>
+[data-theme="dark"]{
+  --bg:#0f1117;--surface:#1a1d27;--card:#22263a;--border:#2e3450;
+  --accent:#6c63ff;--accent2:#00d4aa;--text:#e2e8f0;--muted:#64748b;
+  --success:#10b981;--warn:#f59e0b;--danger:#ef4444;--code-bg:#0d1117;
+  --shadow:rgba(0,0,0,.4);--reach:#00d4aa;--grasp:#378ADD;--freeze:#ef4444;
+  --mc-bg:#22263a;--bar-bg:#1a1d27;
+}
+[data-theme="light"]{
+  --bg:#f8fafc;--surface:#ffffff;--card:#ffffff;--border:#e2e8f0;
+  --accent:#5b52f0;--accent2:#0891b2;--text:#0f172a;--muted:#64748b;
+  --success:#059669;--warn:#d97706;--danger:#dc2626;--code-bg:#1e293b;
+  --shadow:rgba(0,0,0,.08);--reach:#0891b2;--grasp:#1d60a0;--freeze:#dc2626;
+  --mc-bg:#f1f5f9;--bar-bg:#e2e8f0;
+}
+*{margin:0;padding:0;box-sizing:border-box;transition:background-color .25s,color .25s,border-color .25s;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:13px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px var(--shadow);}
+.nav-left{display:flex;align-items:center;gap:28px;}
+.nav-logo{font-size:1.1rem;font-weight:700;color:var(--accent);}
+.nav-links{display:flex;gap:18px;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.86rem;transition:color .2s;}
+.nav-links a:hover{color:var(--text);}
+.tog{background:var(--mc-bg);border:1px solid var(--border);border-radius:20px;padding:5px 12px;cursor:pointer;font-size:.8rem;color:var(--text);display:flex;align-items:center;gap:6px;transition:all .2s;}
+.tog:hover{border-color:var(--accent);}
+.hero{padding:68px 40px;text-align:center;border-bottom:1px solid var(--border);}
+.hero h1{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,#6c63ff,#00d4aa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;}
+.hero p{font-size:.93rem;color:var(--muted);max-width:640px;margin:0 auto 18px;}
+.hero-meta{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;}
+.meta{font-size:.8rem;color:var(--muted);}
+.meta strong{color:var(--text);}
+.attr{background:rgba(108,99,255,.07);border:1px solid rgba(108,99,255,.22);border-radius:10px;padding:13px 18px;max-width:680px;margin:20px auto 0;font-size:.83rem;color:var(--muted);}
+[data-theme="light"] .attr{background:rgba(91,82,240,.05);border-color:rgba(91,82,240,.18);}
+.attr a{color:var(--accent);text-decoration:none;}
+.sec{padding:60px 40px;max-width:960px;margin:0 auto;}
+.sec h2{font-size:1.5rem;font-weight:700;margin-bottom:8px;}
+.sec-sub{color:var(--muted);font-size:.88rem;margin-bottom:32px;}
+hr{border:none;border-top:1px solid var(--border);}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:13px;margin-bottom:36px;}
+.mc{background:var(--mc-bg);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;}
+.mc .lbl{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px;}
+.mc .val{font-size:1.9rem;font-weight:800;}
+.mc .sub{font-size:.73rem;color:var(--muted);margin-top:3px;}
+.c-reach{color:var(--reach);}.c-grasp{color:var(--grasp);}.c-freeze{color:var(--freeze);}.c-ok{color:var(--success);}
+.bcols{display:grid;grid-template-columns:1fr;gap:26px;margin-bottom:32px;}
+.bcol h4{font-size:.83rem;font-weight:600;margin-bottom:11px;}
+.bg{margin-bottom:9px;}
+.bl{font-size:.76rem;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:3px;}
+.bw{background:var(--bar-bg);border-radius:4px;height:17px;overflow:hidden;}
+.bf{height:100%;border-radius:4px;display:flex;align-items:center;padding:0 6px;font-size:.65rem;font-weight:600;color:white;white-space:nowrap;}
+.vc{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow);}
+.vc video{width:100%;display:block;background:#000;max-height:420px;object-fit:cover;}
+.vi{padding:14px;}
+.vi h4{font-size:.88rem;font-weight:600;margin-bottom:5px;}
+.vi p{font-size:.79rem;color:var(--muted);}
+.vb{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.68rem;font-weight:600;margin-bottom:6px;}
+.vb-reach{background:rgba(0,212,170,.13);color:var(--reach);border:1px solid var(--reach);}
+.vb-freeze{background:rgba(239,68,68,.13);color:var(--freeze);border:1px solid var(--freeze);}
+.vb-w{background:rgba(245,158,11,.13);color:var(--warn);border:1px solid var(--warn);}
+.cb{background:var(--code-bg);border:1px solid var(--border);border-radius:10px;margin:11px 0;overflow:hidden;}
+.ch{background:var(--surface);padding:7px 13px;font-size:.7rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);}
+[data-theme="light"] .ch{background:#f1f5f9;}
+.ch .lang{color:var(--accent);font-weight:600;}
+.cpb{background:none;border:1px solid var(--border);color:var(--muted);padding:2px 8px;border-radius:4px;cursor:pointer;font-size:.68rem;}
+.cpb:hover{color:var(--accent);border-color:var(--accent);}
+pre{padding:15px;overflow-x:auto;font-family:'JetBrains Mono','Fira Code',monospace;font-size:.8rem;line-height:1.65;color:#e2e8f0;}
+.cm{color:#6b7280;}.cg{color:#86efac;}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;box-shadow:0 1px 4px var(--shadow);}
+.card h3{font-size:.93rem;font-weight:700;margin-bottom:9px;}
+.card p,.card li{font-size:.84rem;color:var(--muted);margin-bottom:6px;}
+.card ul{padding-left:16px;}
+.card.reach{border-top:3px solid var(--reach);}
+.card.freeze{border-top:3px solid var(--freeze);}
+.br{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:.83rem;}
+.br:last-child{border-bottom:none;}
+.br .k{color:var(--muted);}
+.br .v{font-weight:600;}
+.win{color:var(--success);font-weight:700;}
+.insight{background:rgba(108,99,255,.07);border:1px solid rgba(108,99,255,.22);border-radius:12px;padding:18px;margin:18px 0;}
+[data-theme="light"] .insight{background:rgba(91,82,240,.05);border-color:rgba(91,82,240,.18);}
+.insight h4{color:var(--accent);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px;}
+.insight p{color:var(--muted);font-size:.85rem;margin-bottom:6px;}
+.insight p:last-child{margin-bottom:0;}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:11px 0;}
+.tbl th{background:var(--mc-bg);color:var(--text);padding:8px 12px;text-align:left;font-weight:600;border-bottom:2px solid var(--border);}
+.tbl td{padding:8px 12px;color:var(--muted);border-bottom:1px solid var(--border);}
+.tbl tr:hover td{background:var(--mc-bg);}
+.tbl code{background:var(--code-bg);padding:1px 5px;border-radius:3px;font-size:.77rem;color:var(--accent2);}
+.ggrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:13px;}
+.gf{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:17px;}
+.gf .ico{font-size:1.2rem;margin-bottom:7px;}
+.gf h4{font-size:.86rem;font-weight:600;margin-bottom:4px;}
+.gf p{font-size:.78rem;color:var(--muted);}
+@media(max-width:680px){.two{grid-template-columns:1fr;}.hero h1{font-size:1.9rem;}.sec{padding:36px 18px;}nav{padding:11px 18px;}.nav-links{display:none;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <div class="nav-logo">OpenVLA — SG2 Results</div>
+    <div class="nav-links">
+      <a href="#results">Results</a>
+      <a href="#videos">Videos</a>
+      <a href="#how-we-did-it">How we did it</a>
+      <a href="#checkpoint-sweep">Benchmark</a>
+      <a href="#gui">GUI</a>
+      <a href="https://rao-sanaullah.github.io/OpenVLA/">Setup guide</a>
+    </div>
+  </div>
+  <button class="tog" onclick="toggleTheme()" id="tog-btn">☀ Light mode</button>
+</nav>
+
+<div class="hero">
+  <h1>OpenVLA on Robotis SG2 AI Worker</h1>
+  <p>Simulation study of closed-loop vision-language-action control for dual-arm humanoid manipulation — a stateless, single-step autoregressive policy evaluated in NVIDIA IsaacLab. The sharpest instance of the offline-vs-closed-loop disconnect in our study.</p>
+  <div class="hero-meta">
+    <div class="meta"><strong>Robot</strong> Robotis SG2 AI Worker</div>
+    <div class="meta"><strong>Simulator</strong> NVIDIA IsaacLab</div>
+    <div class="meta"><strong>Model</strong> OpenVLA-7B — Prismatic (Llama-2 + SigLIP/DINOv2)</div>
+    <div class="meta"><strong>Dataset</strong> 2,000 demos · 306,766 transitions</div>
+    <div class="meta"><strong>GPU</strong> RTX 5090 32GB</div>
+  </div>
+  <div class="attr">
+    This work uses <a href="https://github.com/openvla/openvla" target="_blank">OpenVLA</a> developed by the Stanford/Berkeley team. We fine-tune and evaluate it on the Robotis SG2 AI Worker as an independent simulation study prior to real-robot transfer.
+  </div>
+</div>
+
+<div class="sec" id="results">
+  <h2>Key results</h2>
+  <p class="sec-sub">50 fully randomized trials — object position (8 slots), lighting, background, pegboard location, and robot initial pose all randomized each episode. Task: <em>"Put the yellow paint brush into the crate."</em> Deployed checkpoint: 100k steps.</p>
+
+  <div class="mgrid">
+    <div class="mc"><div class="lbl">Reach success</div><div class="val c-reach">100%</div><div class="sub">50 / 50 · 100k steps</div></div>
+    <div class="mc"><div class="lbl">Grasp success<sup>&dagger;</sup></div><div class="val c-grasp">100%</div><div class="sub">50 / 50 · with gripper-snap</div></div>
+    <div class="mc"><div class="lbl">Place success</div><div class="val c-freeze">0%</div><div class="sub">0 / 50 · post-grasp freeze</div></div>
+    <div class="mc"><div class="lbl">Offline NormMAE</div><div class="val c-ok">1.0%</div><div class="sub">lowest error in study</div></div>
+    <div class="mc"><div class="lbl">Per-query latency</div><div class="val" style="font-size:1.4rem;color:var(--text)">310 ms</div><div class="sub">&plusmn;3 ms · RTX 5090</div></div>
+    <div class="mc"><div class="lbl">Control rate</div><div class="val" style="font-size:1.4rem;color:var(--text)">10 Hz</div><div class="sub">single-step (T=1)</div></div>
+  </div>
+
+  <div class="bcols">
+    <div>
+      <h4 style="color:var(--reach)">OpenVLA — 100k steps · phase-by-phase outcome (50 trials)</h4>
+      <div class="bg"><div class="bl"><span>Reach target</span><span>50 (100%)</span></div><div class="bw"><div class="bf" style="width:100%;background:var(--reach)">100%</div></div></div>
+      <div class="bg"><div class="bl"><span>Grasp brush<sup>&dagger;</sup></span><span>50 (100%)</span></div><div class="bw"><div class="bf" style="width:100%;background:var(--grasp)">100%</div></div></div>
+      <div class="bg"><div class="bl"><span>Lift &amp; transport</span><span>0 (0%)</span></div><div class="bw"><div class="bf" style="width:1%;background:#333"></div></div></div>
+      <div class="bg"><div class="bl"><span>Place in crate</span><span>0 (0%)</span></div><div class="bw"><div class="bf" style="width:1%;background:#333"></div></div></div>
+      <div class="bg"><div class="bl"><span>Post-grasp freeze</span><span>50 (100%)</span></div><div class="bw"><div class="bf" style="width:100%;background:var(--freeze)">100%</div></div></div>
+    </div>
+  </div>
+
+  <p style="font-size:.75rem;color:var(--muted);margin-top:-16px;margin-bottom:24px"><sup>&dagger;</sup> Grasp success is measured with an inference-time gripper-snap (raw gripper output thresholded to fully-open/fully-closed). Reach and grasp are reliable; the policy then freezes in the visually near-static post-grasp phase and never lifts or transports the brush.</p>
+
+  <div class="insight">
+    <h4>&#10022; The core finding — offline accuracy does not predict closed-loop success</h4>
+    <p><strong style="color:var(--success)">Best-in-study offline prediction, zero task completion.</strong> OpenVLA achieves the lowest offline action-prediction error of any model we evaluated (1.0% normalized MAE, comparable to GR00T N1.6) — yet completes 0% of trials. It reaches and grasps reliably, then freezes.</p>
+    <p><strong style="color:var(--freeze)">Why it freezes:</strong> OpenVLA is stateless and single-step — it predicts one action from the current image only, with no proprioceptive feedback and no temporal action context. Once the brush is grasped, the scene becomes visually near-static (the brush is occluded in the gripper), so the policy sees almost no change and emits almost no motion. The extended post-grasp transport phase provides none of the visual dynamics this architecture depends on.</p>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec" id="dataset">
+  <h2>Dataset</h2>
+  <p class="sec-sub">FFW-SG2 simulation demonstration dataset, converted from LeRobot v2.1 to RLDS for the OpenVLA fine-tuning pipeline.</p>
+
+  <div class="mgrid" style="margin-bottom:24px">
+    <div class="mc"><div class="lbl">Total episodes</div><div class="val" style="color:var(--accent)">2,000</div><div class="sub">demonstrations</div></div>
+    <div class="mc"><div class="lbl">Transitions</div><div class="val" style="color:var(--accent)">306,766</div><div class="sub">state-action pairs</div></div>
+    <div class="mc"><div class="lbl">Avg length</div><div class="val" style="color:var(--accent)">153</div><div class="sub">steps per episode</div></div>
+    <div class="mc"><div class="lbl">Control rate</div><div class="val" style="color:var(--accent)">10</div><div class="sub">fps recording</div></div>
+    <div class="mc"><div class="lbl">Action space</div><div class="val" style="color:var(--accent)">19</div><div class="sub">DOF joint targets</div></div>
+    <div class="mc"><div class="lbl">Model input</div><div class="val" style="color:var(--accent)">224&times;224</div><div class="sub">RGB head camera</div></div>
+  </div>
+
+  <div class="two">
+    <div class="card">
+      <h3 style="font-size:.88rem;margin-bottom:10px">Task</h3>
+      <p style="font-size:.88rem;color:var(--muted);font-style:italic;margin-bottom:8px">"Put the yellow paint brush into the crate."</p>
+      <p style="font-size:.82rem;color:var(--muted)">Robot identifies the target among multiple objects on an 8-slot pegboard, grasps, lifts, transports, and places it into the crate.</p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:.88rem;margin-bottom:10px">Format &amp; conversion</h3>
+      <div class="br"><span class="k">Source format</span><span class="v">LeRobot v2.1</span></div>
+      <div class="br"><span class="k">OpenVLA format</span><span class="v">RLDS (TFDS)</span></div>
+      <div class="br"><span class="k">Image (native)</span><span class="v">376&times;672 &rarr; 224&times;224</span></div>
+      <div class="br"><span class="k">Train / val split</span><span class="v">1,900 / 100</span></div>
+      <div class="br"><span class="k">Action encoding</span><span class="v">256 bins / dim</span></div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec" id="videos">
+  <h2>Video demonstrations</h2>
+  <p class="sec-sub">Task: <em>"Put the yellow paint brush into the crate."</em> — object position, lighting, background, pegboard location, and robot initial pose all randomized each episode.</p>
+
+  <div style="margin-bottom:10px;display:flex;align-items:center;gap:10px">
+    <span class="vb vb-freeze" style="font-size:.78rem">Deployed · 100k steps</span>
+    <span style="font-size:.82rem;color:var(--muted)">Reliable reach and grasp, then the post-grasp freeze</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px">
+    <div class="vc">
+      <video controls preload="metadata" style="max-height:420px;width:100%">
+        <source src="https://media.githubusercontent.com/media/Rao-Sanaullah/OpenVLA/main/openvla-reach-grasp.mp4" type="video/mp4">Video not available.
+      </video>
+      <div class="vi">
+        <h4>Reach &amp; grasp</h4>
+        <p>The policy correctly identifies the paint brush, reaches, and closes the gripper on the handle — reach and grasp succeed on every trial.</p>
+      </div>
+    </div>
+    <div class="vc">
+      <video controls preload="metadata" style="max-height:420px;width:100%">
+        <source src="https://media.githubusercontent.com/media/Rao-Sanaullah/OpenVLA/main/openvla-postgrasp-freeze.mp4" type="video/mp4">Video not available.
+      </video>
+      <div class="vi">
+        <h4>Post-grasp freeze</h4>
+        <p>Immediately after grasping, the scene becomes visually static and the arm stops moving — the brush is never lifted or transported to the crate. 0% place success.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:10px;display:flex;align-items:center;gap:10px">
+    <span class="vb vb-w" style="font-size:.78rem">Intermediate · 60k steps</span>
+    <span style="font-size:.82rem;color:var(--muted)">The revealing counter-case — a missed grasp completes the full trajectory</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px">
+    <div></div>
+    <div class="vc">
+      <video controls preload="metadata" style="max-height:420px;width:100%">
+        <source src="https://media.githubusercontent.com/media/Rao-Sanaullah/OpenVLA/main/openvla-60k-empty-gripper.mp4" type="video/mp4">Video not available.
+      </video>
+      <div class="vi">
+        <h4>Empty-gripper full trajectory</h4>
+        <p>The worst-performing checkpoint (60k). When it <em>misses</em> the grasp, the arm continues through the complete reach&ndash;lift&ndash;transport&ndash;release motion toward the crate with an empty gripper &mdash; proving the policy has learned the full task, and that a successful grasp is what triggers the freeze.</p>
+      </div>
+    </div>
+    <div></div>
+  </div>
+  <p style="font-size:.78rem;color:var(--muted);text-align:center;margin-top:4px">
+    Video files are hosted via Git LFS in this repository.
+  </p>
+</div>
+
+<hr>
+
+<div class="sec" id="how-we-did-it">
+  <h2>How we deployed OpenVLA in closed loop</h2>
+  <p class="sec-sub">OpenVLA is a single-system autoregressive policy: given one image and a language instruction, it directly predicts a discretized action token sequence — no diffusion head, no proprioceptive state, no action chunking.</p>
+
+  <div class="two">
+    <div class="card reach">
+      <h3 style="color:var(--reach)">Architecture &amp; inference</h3>
+      <ul>
+        <li>Base: OpenVLA-7B (Prismatic VLM)</li>
+        <li>Vision: fused SigLIP + DINOv2</li>
+        <li>LLM: Llama-2 7B</li>
+        <li>Action: 256 discrete bins / dim, autoregressive</li>
+        <li>State input: none (image + language only)</li>
+        <li>Output: single 19-D action (T=1)</li>
+      </ul>
+    </div>
+    <div class="card freeze">
+      <h3 style="color:var(--freeze)">Fine-tuning</h3>
+      <ul>
+        <li>Method: LoRA (r=32, &alpha;=16) on the LLM</li>
+        <li>Vision encoders: frozen</li>
+        <li>Steps: 100,000 · batch 8</li>
+        <li>Hardware: NVIDIA DGX Spark</li>
+        <li>Data format: RLDS (converted from LeRobot v2.1)</li>
+        <li>Attention: eager (FlashAttention disabled)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="font-size:.97rem;font-weight:600;color:var(--accent2);margin:22px 0 10px">Single-step, synchronous inference bridge</h3>
+  <p style="color:var(--muted);font-size:.86rem;margin-bottom:10px">Unlike the chunked diffusion policies (GR00T, StarVLA), OpenVLA returns one action per query. The bridge queries synchronously and holds each action for 5 control steps at 10 Hz, so every action is conditioned on the current observation — never a stale one.</p>
+  <div class="cb"><div class="ch"><span class="lang">python</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+  <pre><code><span class="cm"># OpenVLA: single-step, synchronous, no chunking, no EMA</span>
+action = openvla_client.get_action(
+    image=cam_image_224,          <span class="cm"># 224x224 RGB, no color conversion</span>
+    instruction=task_description,
+    unnorm_key=<span class="cg">"ffw_sg2"</span>,   <span class="cm"># per-dim unnormalization stats</span>
+)                                 <span class="cm"># returns one 19-D action (T=1)</span>
+<span class="cm"># held for 5 control steps at 10 Hz (~500 ms) before re-query</span></code></pre></div>
+
+  <h3 style="font-size:.97rem;font-weight:600;color:var(--accent2);margin:22px 0 10px">Gripper-snap at inference</h3>
+  <p style="color:var(--muted);font-size:.86rem;margin-bottom:10px">Raw gripper output is soft; a decisive open/close snap is applied so the grasp actually closes on the handle. The 100% grasp rate depends on this post-processing.</p>
+  <div class="cb"><div class="ch"><span class="lang">python</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+  <pre><code><span class="cm"># decisive gripper command from raw model output</span>
+rg = 1.1 <span style="color:#c084fc">if</span> raw_gripper &gt; 0.3 <span style="color:#c084fc">else</span> 0.05</code></pre></div>
+
+  <div class="insight">
+    <h4>Why it reaches and grasps but cannot place</h4>
+    <p>During reach, the scene changes continuously as the arm approaches — the single-step policy always has fresh visual signal to act on. After the grasp, the brush is held in the gripper and the scene stops changing; a stateless, single-step model sees a near-identical image at every step and therefore emits a near-identical (near-zero-motion) action. With no proprioceptive feedback and no temporal action context, there is nothing to carry the trajectory through the visually static transport phase.</p>
+  </div>
+</div>
+
+<hr>
+
+<div class="sec" id="checkpoint-sweep">
+  <h2>Checkpoint selection analysis</h2>
+  <p class="sec-sub">Offline action prediction error across all ten training checkpoints (10k&ndash;100k) — evaluated on 10 dataset episodes &times; 30 frames (300 samples each) without simulation. Action range mean 0.8441 rad.</p>
+
+  <div style="margin-bottom:8px">
+    <img src="https://raw.githubusercontent.com/Rao-Sanaullah/OpenVLA/main/openvla_mae_analysis.png"
+         alt="OpenVLA MAE / RMSE / normalized MAE vs checkpoint, and per-checkpoint overall MAE"
+         style="width:100%;border-radius:8px;border:1px solid var(--border);display:block" loading="lazy"/>
+    <div style="font-size:.73rem;color:var(--muted);text-align:center;margin-top:5px">MAE · RMSE · Normalized MAE vs training steps (left); overall MAE per checkpoint (right)</div>
+  </div>
+
+  <div class="insight" style="margin-top:20px">
+    <h4>Key finding — a clean, converged offline curve</h4>
+    <p>Offline MAE decreases monotonically from 0.0234 rad (2.6% NormMAE) at 10k to 0.0101 rad (1.0% NormMAE) at 100k, with no collapse or instability — unlike StarVLA. The deployed 100k checkpoint is also the global offline minimum. That a smooth, well-converged, best-in-study offline curve still yields 0% closed-loop place success is the strongest evidence in our study that offline MAE does not predict closed-loop task completion.</p>
+  </div>
+
+  <table class="tbl" style="margin-top:16px">
+    <tr><th>Checkpoint</th><th>MAE (rad)</th><th>RMSE (rad)</th><th>Normalized MAE</th></tr>
+    <tr><td>10k</td><td>0.0234</td><td>0.0507</td><td>2.6%</td></tr>
+    <tr><td>20k</td><td>0.0155</td><td>0.0334</td><td>1.6%</td></tr>
+    <tr><td>30k</td><td>0.0114</td><td>0.0203</td><td>1.1%</td></tr>
+    <tr><td>40k</td><td>0.0110</td><td>0.0201</td><td>1.1%</td></tr>
+    <tr><td>50k</td><td>0.0110</td><td>0.0208</td><td>1.1%</td></tr>
+    <tr><td>60k</td><td>0.0105</td><td>0.0198</td><td>1.0%</td></tr>
+    <tr><td>70k</td><td>0.0108</td><td>0.0223</td><td>1.1%</td></tr>
+    <tr><td>80k</td><td>0.0117</td><td>0.0255</td><td>1.2%</td></tr>
+    <tr><td>90k</td><td>0.0113</td><td>0.0233</td><td>1.2%</td></tr>
+    <tr><td class="win">100k (deployed)</td><td class="win">0.0101</td><td class="win">0.0192</td><td class="win">1.0%</td></tr>
+  </table>
+</div>
+
+<hr>
+
+<div class="sec" id="gui">
+  <h2>Web GUI for simulation control</h2>
+  <p class="sec-sub">FastAPI + WebSocket browser interface for submitting tasks, monitoring execution, and controlling the simulation without terminal access.</p>
+  <div class="ggrid">
+    <div class="gf"><div class="ico">&#9000;</div><h4>Task input</h4><p>Free-form language instruction sent to the robot in real time.</p></div>
+    <div class="gf"><div class="ico">&#9889;</div><h4>Quick tasks</h4><p>Pre-configured buttons for common task descriptions.</p></div>
+    <div class="gf"><div class="ico">&#8635;</div><h4>Reset</h4><p>Resets IsaacLab and randomizes all scene parameters.</p></div>
+    <div class="gf"><div class="ico">&#9208;</div><h4>Stop</h4><p>Halts execution — robot holds current pose.</p></div>
+    <div class="gf"><div class="ico">&#128225;</div><h4>Live status</h4><p>WebSocket shows real-time execution status.</p></div>
+    <div class="gf"><div class="ico">&#128203;</div><h4>Task history</h4><p>Logs all submitted tasks with timestamps.</p></div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:20px">
+    <h4 style="margin-bottom:9px;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.7px">Start the OpenVLA server &amp; GUI</h4>
+    <div class="cb"><div class="ch"><span class="lang">bash</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+    <pre><code><span class="cm"># OpenVLA policy server (HTTP, port 8000)</span>
+python vla-scripts/deploy.py --openvla_path /path/to/spark-100k \
+    --host 0.0.0.0 --port 8000
+
+<span class="cm"># control GUI — open http://localhost:8000</span>
+python scripts/server.py</code></pre></div>
+    <p style="font-size:.83rem;color:var(--muted);margin-top:9px">The GUI writes instructions to <code>/tmp/groot_task.txt</code>, polled by the inference loop each step. OpenVLA runs single-step at 10 Hz. Special commands <code>__RESET__</code> and <code>__STOP__</code> control the environment without interrupting simulation.</p>
+  </div>
+</div>
+
+<div style="padding:28px 40px;text-align:center;color:var(--muted);font-size:.78rem;border-top:1px solid var(--border)">
+  <p>Uses <a href="https://github.com/openvla/openvla" style="color:var(--accent);text-decoration:none">OpenVLA</a> by the Stanford/Berkeley team · Deployed on Robotis SG2 AI Worker · NVIDIA IsaacLab · Ongoing study</p>
+  <p style="margin-top:4px">Designed by <strong style="color:var(--text)">Sanaullah</strong></p>
+  <p style="margin-top:5px">
+    <a href="https://rao-sanaullah.github.io/OpenVLA/" style="color:var(--accent);text-decoration:none;margin:0 9px">Setup guide</a>
+    <a href="https://github.com/openvla/openvla" style="color:var(--accent);text-decoration:none;margin:0 9px">OpenVLA repo &#8599;</a>
+    <a href="#" style="color:var(--accent);text-decoration:none;margin:0 9px">Paper</a>
+  </p>
+</div>
+
+<script>
+function cp(btn){const p=btn.closest('.cb').querySelector('pre');navigator.clipboard.writeText(p.innerText);btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',2000);}
+function toggleTheme(){const h=document.documentElement;const isDark=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',isDark?'light':'dark');document.getElementById('tog-btn').textContent=isDark?'\u{1F319} Dark mode':'\u2600 Light mode';localStorage.setItem('theme',isDark?'light':'dark');}
+(function(){const t=localStorage.getItem('theme');if(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('tog-btn').textContent=t==='light'?'\u{1F319} Dark mode':'\u2600 Light mode';}})();
+</script>
+</body>
+</html>
