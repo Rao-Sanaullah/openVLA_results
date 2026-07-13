@@ -128,8 +128,13 @@ pre{padding:15px;overflow-x:auto;font-family:'JetBrains Mono','Fira Code',monosp
     <div class="meta"><strong>Dataset</strong> 2,000 demos · 306,766 transitions</div>
     <div class="meta"><strong>GPU</strong> RTX 5090 32GB</div>
   </div>
-  <div class="attr">
+<div class="attr">
     This work uses <a href="https://github.com/openvla/openvla" target="_blank">OpenVLA</a> developed by the Stanford/Berkeley team. We fine-tune and evaluate it on the Robotis SG2 AI Worker as an independent simulation study prior to real-robot transfer.
+  </div>
+  <div class="attr" style="background:rgba(0,212,170,.08);border-color:rgba(0,212,170,.3);margin-top:12px">
+    &#128295; <strong style="color:var(--accent2)">Installation &amp; setup guide:</strong>
+    full reproduction instructions are at
+    <a href="https://rao-sanaullah.github.io/OpenVLA/" target="_blank" style="color:var(--accent2)">rao-sanaullah.github.io/OpenVLA</a>.
   </div>
 </div>
 
@@ -312,9 +317,11 @@ rg = 1.1 <span style="color:#c084fc">if</span> raw_gripper &gt; 0.3 <span style=
   <p class="sec-sub">Offline action prediction error across all ten training checkpoints (10k&ndash;100k) — evaluated on 10 dataset episodes &times; 30 frames (300 samples each) without simulation. Action range mean 0.8441 rad.</p>
 
   <div style="margin-bottom:8px">
-    <img src="https://raw.githubusercontent.com/Rao-Sanaullah/openVLA_results/blob/main/openvla_mae_analysis.png"
-         alt="OpenVLA MAE / RMSE / normalized MAE vs checkpoint, and per-checkpoint overall MAE"
-         style="width:100%;border-radius:8px;border:1px solid var(--border);display:block" loading="lazy"/>
+    <img src="https://raw.githubusercontent.com/Rao-Sanaullah/OpenVLA/main/openvla_mae_analysis.png"
+     alt="OpenVLA MAE / RMSE / normalized MAE vs checkpoint, and per-checkpoint overall MAE"
+     style="width:100%;border-radius:8px;border:1px solid var(--border);display:block" loading="lazy"/>
+
+      
     <div style="font-size:.73rem;color:var(--muted);text-align:center;margin-top:5px">MAE · RMSE · Normalized MAE vs training steps (left); overall MAE per checkpoint (right)</div>
   </div>
 
