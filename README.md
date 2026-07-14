@@ -2,7 +2,8 @@
 
 Simulation study of closed-loop VLA control for dual-arm humanoid manipulation using OpenVLA, deployed on the Robotis SG2 AI Worker in NVIDIA IsaacLab.
 
-Full results, videos, and methodology: https://rao-sanaullah.github.io/OpenVLA/
+Full results, videos, and methodology: https://rao-sanaullah.github.io/openVLA_results/
+For Instalation Guide: https://rao-sanaullah.github.io/OpenVLA/
 
 ## Key results
 
