@@ -206,32 +206,25 @@ pre{padding:15px;overflow-x:auto;font-family:'JetBrains Mono','Fira Code',monosp
 <hr>
 
 <div class="sec" id="videos">
-  <h2>Video demonstrations</h2>
+  <h2>Video demonstration</h2>
   <p class="sec-sub">Task: <em>"Put the yellow paint brush into the crate."</em> — object position, lighting, background, pegboard location, and robot initial pose all randomized each episode.</p>
 
   <div style="margin-bottom:10px;display:flex;align-items:center;gap:10px">
     <span class="vb vb-freeze" style="font-size:.78rem">Deployed · 100k steps</span>
     <span style="font-size:.82rem;color:var(--muted)">Reliable reach and grasp, then the post-grasp freeze</span>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px">
+  <div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:16px;margin-bottom:32px">
+    <div></div>
     <div class="vc">
-      <video controls preload="metadata" style="max-height:420px;width:100%">
-        <source src="https://media.githubusercontent.com/media/Rao-Sanaullah/OpenVLA/main/openvla-reach-grasp.mp4" type="video/mp4">Video not available.
+      <video controls preload="metadata" style="max-height:460px;width:100%">
+        <source src="https://media.githubusercontent.com/media/Rao-Sanaullah/openVLA_results/main/openvla.mp4" type="video/mp4">Video not available.
       </video>
       <div class="vi">
-        <h4>Reach &amp; grasp</h4>
-        <p>The policy correctly identifies the paint brush, reaches, and closes the gripper on the handle — reach and grasp succeed on every trial.</p>
+        <h4>Reach, grasp, then freeze</h4>
+        <p>The policy correctly identifies the paint brush, reaches, and closes the gripper on the handle — reach and grasp succeed reliably. But immediately after grasping, the scene becomes visually static and the arm stops moving: the brush is never lifted or transported to the crate. 0% place success.</p>
       </div>
     </div>
-    <div class="vc">
-      <video controls preload="metadata" style="max-height:420px;width:100%">
-        <source src="https://media.githubusercontent.com/media/Rao-Sanaullah/OpenVLA/main/openvla-postgrasp-freeze.mp4" type="video/mp4">Video not available.
-      </video>
-      <div class="vi">
-        <h4>Post-grasp freeze</h4>
-        <p>Immediately after grasping, the scene becomes visually static and the arm stops moving — the brush is never lifted or transported to the crate. 0% place success.</p>
-      </div>
-    </div>
+    <div></div>
   </div>
 
   <div style="margin-bottom:10px;display:flex;align-items:center;gap:10px">
